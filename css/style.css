@@ -1,0 +1,1393 @@
+/* ═══════════════════════════════════════════════════════════════
+   Дино-меню малыша — главная таблица стилей
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ─── Переменные ─────────────────────────────────────────────── */
+:root {
+  --green:      #7CB342;
+  --green-dark: #558B2F;
+  --green-light:#C5E1A5;
+  --blue:       #4FC3F7;
+  --blue-light: #B3E5FC;
+  --yellow:     #FFD54F;
+  --yellow-light:#FFF9C4;
+  --coral:      #FF8A65;
+  --purple:     #9575CD;
+  --red:        #EF5350;
+  --white:      #FFFFFF;
+  --card-bg:    #FFFDE7;
+  --card-shadow:6px 6px 0 rgba(0,0,0,.10);
+  --radius:     20px;
+  --radius-sm:  12px;
+  --font-head:  'Baloo 2', sans-serif;
+  --font-body:  'Nunito', sans-serif;
+  --bg-grad:    linear-gradient(160deg, #B3E5FC 0%, #C8E6C9 60%, #DCEDC8 100%);
+  --transition: .2s ease;
+}
+
+/* ─── Тема: Девочка / Принцессы ─────────────────────────────── */
+[data-theme="girl"] {
+  --green:       #E91E8C;
+  --green-dark:  #7B1FA2;
+  --green-light: #F8BBD0;
+  --yellow:      #F48FB1;
+  --yellow-light:#FCE4EC;
+  --coral:       #CE93D8;
+  --card-bg:     #FFF0F5;
+  --bg-grad:     linear-gradient(160deg, #FCE4EC 0%, #F3E5F5 60%, #EDE7F6 100%);
+}
+[data-theme="girl"] .ground-strip {
+  background: linear-gradient(90deg, #E91E8C 0%, #CE93D8 50%, #E91E8C 100%);
+  box-shadow: 0 3px 8px rgba(233,30,140,.35);
+}
+
+/* ─── Базовый сброс ──────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  background: var(--bg-grad);
+  min-height: 100vh;
+  color: #333;
+  overflow-x: hidden;
+}
+
+/* ─── Скроллбар ──────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #e0f2f1; }
+::-webkit-scrollbar-thumb { background: var(--green); border-radius: 4px; }
+
+/* ═══════════════════════════════════════════════════════════════
+   HERO / ШАПКА
+   ═══════════════════════════════════════════════════════════════ */
+.hero {
+  position: relative;
+  text-align: center;
+  padding: 48px 20px 60px;
+  overflow: hidden;
+}
+
+/* Звёздный фон */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 15% 25%, rgba(255,255,255,.7) 2px, transparent 2px),
+    radial-gradient(circle at 45% 10%, rgba(255,255,255,.5) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 75% 20%, rgba(255,255,255,.6) 2px, transparent 2px),
+    radial-gradient(circle at 90% 50%, rgba(255,255,255,.4) 1px, transparent 1px),
+    radial-gradient(circle at 30% 70%, rgba(255,255,255,.5) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 60% 80%, rgba(255,255,255,.4) 1px, transparent 1px),
+    radial-gradient(circle at 5% 85%,  rgba(255,255,255,.6) 2px, transparent 2px),
+    radial-gradient(circle at 85% 85%, rgba(255,255,255,.5) 1.5px, transparent 1.5px);
+  pointer-events: none;
+}
+
+/* Дино-поле */
+.dino-scene {
+  position: relative;
+  width: 380px;
+  max-width: 90vw;
+  height: 72px;
+  margin: 0 auto 20px;
+  overflow: hidden;
+}
+
+.ground-strip {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: linear-gradient(90deg, #7CB342 0%, #AED581 50%, #7CB342 100%);
+  border-radius: 3px;
+  box-shadow: 0 3px 8px rgba(124,179,66,.35);
+}
+
+.dino-runner {
+  position: absolute;
+  bottom: 6px;
+  left: 0;
+  animation: dino-walk 8s linear infinite;
+}
+
+.dino-step {
+  display: block;
+  font-size: 40px;
+  line-height: 1;
+  animation: dino-bounce 0.38s ease-in-out infinite;
+  filter: drop-shadow(1px 2px 3px rgba(0,0,0,.18));
+}
+
+@keyframes dino-walk {
+  from { transform: translateX(-60px); }
+  to   { transform: translateX(440px); }
+}
+
+@keyframes dino-bounce {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-7px); }
+}
+
+/* Продукты вдоль поля */
+.food {
+  position: absolute;
+  bottom: 6px;
+  font-size: 26px;
+  line-height: 1;
+  filter: drop-shadow(1px 1px 2px rgba(0,0,0,.15));
+}
+
+.food-1 { left:  50px; animation: eat-1 8s linear infinite; }
+.food-2 { left: 120px; animation: eat-2 8s linear infinite; }
+.food-3 { left: 190px; animation: eat-3 8s linear infinite; }
+.food-4 { left: 260px; animation: eat-4 8s linear infinite; }
+.food-5 { left: 330px; animation: eat-5 8s linear infinite; }
+
+/* Тайминг: dino translateX от -60 до 440 (500px), еда на fixed px */
+/* food-1 50px:  eaten at (50+60)/500 = 22% */
+@keyframes eat-1 {
+  0%, 20%  { transform: scale(1);   opacity: 1; }
+  21%      { transform: scale(1.4); opacity: 1; }
+  22%      { transform: scale(0);   opacity: 0; }
+  96%      { transform: scale(0);   opacity: 0; }
+  99%, 100%{ transform: scale(1);   opacity: 1; }
+}
+/* food-2 120px: eaten at 180/500 = 36% */
+@keyframes eat-2 {
+  0%, 34%  { transform: scale(1);   opacity: 1; }
+  35%      { transform: scale(1.4); opacity: 1; }
+  36%      { transform: scale(0);   opacity: 0; }
+  96%      { transform: scale(0);   opacity: 0; }
+  99%, 100%{ transform: scale(1);   opacity: 1; }
+}
+/* food-3 190px: eaten at 250/500 = 50% */
+@keyframes eat-3 {
+  0%, 48%  { transform: scale(1);   opacity: 1; }
+  49%      { transform: scale(1.4); opacity: 1; }
+  50%      { transform: scale(0);   opacity: 0; }
+  96%      { transform: scale(0);   opacity: 0; }
+  99%, 100%{ transform: scale(1);   opacity: 1; }
+}
+/* food-4 260px: eaten at 320/500 = 64% */
+@keyframes eat-4 {
+  0%, 62%  { transform: scale(1);   opacity: 1; }
+  63%      { transform: scale(1.4); opacity: 1; }
+  64%      { transform: scale(0);   opacity: 0; }
+  97%      { transform: scale(0);   opacity: 0; }
+  99%, 100%{ transform: scale(1);   opacity: 1; }
+}
+/* food-5 330px: eaten at 390/500 = 78% */
+@keyframes eat-5 {
+  0%, 76%  { transform: scale(1);   opacity: 1; }
+  77%      { transform: scale(1.4); opacity: 1; }
+  78%      { transform: scale(0);   opacity: 0; }
+  97%      { transform: scale(0);   opacity: 0; }
+  99%, 100%{ transform: scale(1);   opacity: 1; }
+}
+
+/* Заголовок */
+.hero-title {
+  font-family: var(--font-head);
+  font-size: clamp(28px, 6vw, 52px);
+  color: var(--green-dark);
+  text-shadow: 3px 3px 0 rgba(255,255,255,.6), 0 0 20px rgba(124,179,66,.4);
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+
+.hero-subtitle {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 28px;
+}
+
+/* Маскот */
+.mascot {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  font-size: 52px;
+  cursor: pointer;
+  z-index: 100;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,.2));
+  transition: filter var(--transition);
+  user-select: none;
+}
+.mascot:hover { filter: drop-shadow(0 6px 12px rgba(0,0,0,.3)); }
+
+/* Облака */
+.cloud {
+  position: absolute;
+  border-radius: 50px;
+  background: rgba(255,255,255,.75);
+  pointer-events: none;
+}
+.cloud::before, .cloud::after {
+  content: '';
+  position: absolute;
+  background: rgba(255,255,255,.75);
+  border-radius: 50%;
+}
+.cloud-1 { width: 120px; height: 40px; top: 15%; left: 5%;  animation: float-cloud 9s  ease-in-out infinite alternate; }
+.cloud-2 { width:  80px; height: 28px; top: 25%; right: 8%; animation: float-cloud 11s ease-in-out infinite alternate-reverse; }
+.cloud-3 { width: 100px; height: 35px; top: 60%; left: 2%;  animation: float-cloud 7s  ease-in-out infinite alternate; }
+.cloud-1::before { width: 60px; height: 60px; top: -30px; left: 20px; }
+.cloud-1::after  { width: 40px; height: 40px; top: -18px; left: 50px; }
+.cloud-2::before { width: 40px; height: 40px; top: -20px; left: 12px; }
+.cloud-2::after  { width: 28px; height: 28px; top: -12px; left: 36px; }
+.cloud-3::before { width: 50px; height: 50px; top: -25px; left: 15px; }
+.cloud-3::after  { width: 34px; height: 34px; top: -14px; left: 44px; }
+
+@keyframes float-cloud {
+  from { transform: translateX(0); }
+  to   { transform: translateX(30px); }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   ДАННЫЕ МАЛЫША
+   ═══════════════════════════════════════════════════════════════ */
+.baby-section {
+  max-width: 700px;
+  margin: 0 auto 32px;
+  padding: 0 16px;
+}
+
+.baby-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--card-shadow);
+  padding: 24px 28px;
+  border: 3px solid var(--yellow);
+}
+
+.baby-card h2 {
+  font-family: var(--font-head);
+  color: var(--green-dark);
+  margin-bottom: 18px;
+  font-size: 20px;
+}
+
+.baby-fields {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.baby-fields label {
+  flex: 1;
+  min-width: 160px;
+  font-weight: 700;
+  font-size: 14px;
+  color: #555;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.baby-fields input {
+  border: 2px solid #ddd;
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  outline: none;
+  transition: border-color var(--transition);
+}
+.baby-fields input:focus { border-color: var(--green); }
+
+.baby-badges {
+  margin-top: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.age-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--green);
+  color: var(--white);
+  border-radius: 999px;
+  padding: 8px 20px;
+  font-family: var(--font-head);
+  font-size: 16px;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(124,179,66,.4);
+}
+.age-badge.hidden { display: none; }
+
+.global-progress-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--blue);
+  color: var(--white);
+  border-radius: 999px;
+  padding: 8px 20px;
+  font-family: var(--font-head);
+  font-size: 16px;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(79,195,247,.4);
+}
+.global-progress-badge.hidden { display: none; }
+
+/* ─── Баннер рекомендаций ─────────────────────────────────────── */
+.recommendation-banner {
+  max-width: 900px;
+  margin: 0 auto 28px;
+  padding: 0 16px;
+  display: none;
+}
+.recommendation-banner.visible { display: block; }
+
+.rec-card {
+  background: linear-gradient(135deg, var(--yellow-light), #FFF8E1);
+  border: 2px dashed var(--yellow);
+  border-radius: var(--radius);
+  padding: 16px 22px;
+  box-shadow: var(--card-shadow);
+}
+.rec-card h3 {
+  font-family: var(--font-head);
+  color: #E65100;
+  margin-bottom: 10px;
+  font-size: 17px;
+}
+.rec-list { display: flex; flex-wrap: wrap; gap: 8px; }
+.rec-chip {
+  background: var(--yellow);
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #5D4037;
+  cursor: pointer;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.rec-chip:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,.15); }
+
+/* ═══════════════════════════════════════════════════════════════
+   ОСНОВНОЙ КОНТЕНТ
+   ═══════════════════════════════════════════════════════════════ */
+.main-content {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 16px 120px;
+}
+
+/* ─── Категория ───────────────────────────────────────────────── */
+.category-section {
+  margin-bottom: 40px;
+}
+
+.category-title {
+  font-family: var(--font-head);
+  font-size: clamp(18px, 3vw, 24px);
+  color: var(--green-dark);
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+  touch-action: manipulation;
+  padding: 10px 14px;
+  background: rgba(255,255,255,.55);
+  border-radius: var(--radius-sm);
+  min-height: 52px;
+  transition: background var(--transition);
+}
+.category-title:active { background: rgba(255,255,255,.85); }
+
+.category-section:not(.collapsed) .category-title {
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+}
+
+.category-title span.cat-icon {
+  font-size: 1.4em;
+  flex-shrink: 0;
+}
+
+.cat-name {
+  flex: 1;
+}
+
+.cat-chevron {
+  font-size: 11px;
+  color: #aaa;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+  line-height: 1;
+}
+.category-section:not(.collapsed) .cat-chevron {
+  transform: rotate(180deg);
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+  padding-top: 12px;
+}
+
+/* ─── Карточка продукта ───────────────────────────────────────── */
+.product-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  box-shadow: var(--card-shadow);
+  padding: 18px 16px 14px;
+  border: 2px solid transparent;
+  position: relative;
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 8px 10px 0 rgba(0,0,0,.12);
+}
+
+.product-card.given {
+  background: #F1F8E9;
+  border-color: var(--green);
+}
+
+.product-card.allergy {
+  border-color: var(--red) !important;
+  background: #FFF5F5;
+}
+
+.product-card.not-yet {
+  opacity: .45;
+  filter: grayscale(.4);
+}
+.product-card.not-yet:hover { opacity: .7; filter: none; }
+
+/* Значок «ещё рано» */
+.not-yet-badge {
+  display: none;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: var(--purple);
+  color: var(--white);
+  font-size: 10px;
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 2px 8px;
+  white-space: nowrap;
+}
+.product-card.not-yet .not-yet-badge { display: block; }
+
+.product-emoji-name {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.product-emoji {
+  font-size: 36px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.product-name {
+  font-family: var(--font-head);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--green-dark);
+  line-height: 1.3;
+}
+
+/* Чекбокс «Введён» */
+.toggle-given {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 700;
+  color: #555;
+  user-select: none;
+}
+.toggle-given input[type="checkbox"] { display: none; }
+.custom-checkbox {
+  width: 22px;
+  height: 22px;
+  border: 2.5px solid #ccc;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  transition: background var(--transition), border-color var(--transition);
+  flex-shrink: 0;
+}
+.toggle-given input:checked ~ .custom-checkbox {
+  background: var(--green);
+  border-color: var(--green);
+  color: var(--white);
+}
+.toggle-given input:checked ~ .custom-checkbox::after { content: '✓'; }
+
+/* Дата */
+.date-field {
+  overflow: hidden;
+  max-width: 100%;
+}
+.date-field input[type="date"] {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  border: 2px solid #ddd;
+  border-radius: var(--radius-sm);
+  padding: 7px 8px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  outline: none;
+  transition: border-color var(--transition);
+  box-sizing: border-box;
+}
+.date-field input:focus { border-color: var(--green); }
+.date-field label { font-size: 12px; color: #888; margin-bottom: 3px; display: block; }
+
+/* Реакции */
+.reactions {
+  display: flex;
+  gap: 6px;
+}
+.reaction-btn {
+  flex: 1;
+  background: #f5f5f5;
+  border: 2px solid transparent;
+  border-radius: var(--radius-sm);
+  font-size: 20px;
+  cursor: pointer;
+  padding: 6px 0;
+  transition: transform var(--transition), background var(--transition), border-color var(--transition);
+  line-height: 1;
+}
+.reaction-btn:hover { transform: scale(1.2); }
+.reaction-btn.active[data-r="like"]    { background: #E8F5E9; border-color: var(--green); }
+.reaction-btn.active[data-r="neutral"] { background: #FFF9C4; border-color: var(--yellow); }
+.reaction-btn.active[data-r="dislike"] { background: #FFEBEE; border-color: var(--red); }
+
+/* Аллергия */
+.allergy-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 700;
+  color: #888;
+  user-select: none;
+  transition: color var(--transition);
+}
+.allergy-toggle input[type="checkbox"] { display: none; }
+.allergy-indicator {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  flex-shrink: 0;
+  transition: background var(--transition), border-color var(--transition);
+}
+.allergy-toggle input:checked ~ .allergy-indicator {
+  background: var(--red);
+  border-color: var(--red);
+  color: var(--white);
+}
+.allergy-toggle input:checked ~ .allergy-indicator::after { content: '!'; font-weight: 900; }
+.allergy-toggle input:checked ~ .allergy-label { color: var(--red); }
+
+/* Заметка */
+.note-field {
+  width: 100%;
+  border: 2px solid #ddd;
+  border-radius: var(--radius-sm);
+  padding: 8px 10px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  resize: vertical;
+  min-height: 60px;
+  outline: none;
+  transition: border-color var(--transition);
+}
+.note-field:focus { border-color: var(--green); }
+.note-field::placeholder { color: #bbb; }
+
+/* Удалить кастомный продукт */
+.delete-custom-btn {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity var(--transition);
+  padding: 2px;
+  border-radius: 4px;
+}
+.product-card:hover .delete-custom-btn { opacity: .5; }
+.delete-custom-btn:hover { opacity: 1 !important; }
+
+/* ═══════════════════════════════════════════════════════════════
+   ПОИСК ПРОДУКТОВ
+   ═══════════════════════════════════════════════════════════════ */
+.search-section {
+  max-width: 700px;
+  margin: 0 auto 24px;
+  padding: 0 16px;
+}
+
+.search-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--card-shadow);
+  padding: 16px 20px;
+  border: 3px solid var(--blue);
+}
+
+.search-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.search-icon { font-size: 20px; flex-shrink: 0; }
+
+.search-input-wrap input {
+  flex: 1;
+  border: 2px solid #ddd;
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  outline: none;
+  transition: border-color var(--transition);
+}
+.search-input-wrap input:focus { border-color: var(--blue); }
+
+.search-results {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+.search-results:empty { margin-top: 0; }
+
+.search-chip {
+  background: var(--blue-light);
+  border-radius: 999px;
+  padding: 5px 14px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #01579B;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border-color var(--transition), transform var(--transition);
+  touch-action: manipulation;
+}
+.search-chip:hover  { border-color: var(--blue); transform: translateY(-2px); }
+.search-chip:active { transform: scale(.96); }
+
+/* ═══════════════════════════════════════════════════════════════
+   КНОПКА «ДОБАВИТЬ ВКУСНЯШКУ» В ПАНЕЛИ ТАБОВ
+   ═══════════════════════════════════════════════════════════════ */
+.panel-tab-add {
+  background: linear-gradient(135deg, var(--coral), #FF7043) !important;
+  border-color: var(--coral) !important;
+  color: var(--white) !important;
+  margin-left: auto;
+}
+.panel-tab-add:hover {
+  box-shadow: 0 6px 16px rgba(255,138,101,.45) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   НИЖНИЕ ПАНЕЛИ
+   ═══════════════════════════════════════════════════════════════ */
+.panels {
+  max-width: 1100px;
+  margin: 0 auto 40px;
+  padding: 0 16px;
+}
+
+.panel-tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.panel-tab {
+  background: var(--white);
+  border: 2px solid #ddd;
+  border-radius: var(--radius-sm);
+  padding: 10px 18px;
+  font-family: var(--font-head);
+  font-size: 14px;
+  cursor: pointer;
+  transition: background var(--transition), border-color var(--transition), transform var(--transition);
+}
+.panel-tab:hover { transform: translateY(-2px); }
+.panel-tab.active {
+  background: var(--green);
+  border-color: var(--green);
+  color: var(--white);
+  box-shadow: 0 4px 12px rgba(124,179,66,.4);
+}
+
+.panel-content {
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--card-shadow);
+  padding: 24px;
+  display: none;
+  animation: fade-in .25s ease;
+}
+.panel-content.active { display: block; }
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Таблица порций */
+.portions-table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: var(--radius-sm);
+}
+
+.portions-table {
+  width: 100%;
+  min-width: 520px;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 13px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+.portions-table th {
+  background: var(--green);
+  color: var(--white);
+  padding: 10px 8px;
+  text-align: left;
+  font-weight: 700;
+}
+.portions-table tr:nth-child(even) td { background: #F9FBE7; }
+.portions-table td {
+  padding: 9px 8px;
+  border-bottom: 1px solid #eee;
+}
+
+/* Список аллергенов */
+.allergen-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.allergen-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 14px;
+  background: #FFF5F5;
+  border-radius: var(--radius-sm);
+  border-left: 4px solid var(--red);
+}
+.allergen-emoji { font-size: 24px; flex-shrink: 0; }
+.allergen-info strong { display: block; font-size: 14px; color: #C62828; }
+.allergen-info span   { font-size: 12px; color: #777; }
+
+/* Общие заметки */
+.general-notes-area {
+  width: 100%;
+  min-height: 160px;
+  border: 2px solid #ddd;
+  border-radius: var(--radius-sm);
+  padding: 14px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  resize: vertical;
+  outline: none;
+  transition: border-color var(--transition);
+}
+.general-notes-area:focus { border-color: var(--green); }
+
+/* Экспорт / Импорт */
+.io-buttons { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; }
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 12px 20px;
+  font-family: var(--font-head);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.btn:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,.15); }
+.btn-green  { background: var(--green);  color: var(--white); }
+.btn-blue   { background: var(--blue);   color: #01579B; }
+.btn-coral  { background: var(--coral);  color: var(--white); }
+.btn-yellow { background: var(--yellow); color: #5D4037; }
+.btn-danger { background: var(--red);    color: var(--white); }
+
+.io-info { font-size: 13px; color: #888; margin-top: 8px; }
+
+/* ═══════════════════════════════════════════════════════════════
+   МОДАЛЬНОЕ ОКНО
+   ═══════════════════════════════════════════════════════════════ */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  padding: 20px;
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .25s ease;
+}
+.modal-overlay.open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.modal {
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: 0 20px 60px rgba(0,0,0,.3);
+  padding: 32px 28px 24px;
+  max-width: 440px;
+  width: 100%;
+  position: relative;
+  transform: scale(.9) translateY(20px);
+  transition: transform .25s ease;
+}
+.modal-overlay.open .modal {
+  transform: scale(1) translateY(0);
+}
+
+#gender-overlay {
+  background: linear-gradient(135deg, #f0f4f8 0%, #dce8f0 100%);
+  backdrop-filter: none;
+}
+
+.modal h2 {
+  font-family: var(--font-head);
+  color: var(--green-dark);
+  margin-bottom: 20px;
+  font-size: 20px;
+}
+
+.modal-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: #f5f5f5;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--transition);
+}
+.modal-close:hover { background: #eee; }
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+.form-group label {
+  font-size: 13px;
+  font-weight: 700;
+  color: #555;
+}
+.form-group input,
+.form-group select {
+  border: 2px solid #ddd;
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  outline: none;
+  transition: border-color var(--transition);
+}
+.form-group input:focus,
+.form-group select:focus { border-color: var(--green); }
+
+.emoji-picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 6px;
+}
+.emoji-opt {
+  font-size: 22px;
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  transition: border-color var(--transition), background var(--transition);
+  line-height: 1;
+}
+.emoji-opt:hover   { background: #f0f0f0; }
+.emoji-opt.selected { border-color: var(--green); background: #E8F5E9; }
+
+.modal-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 8px; }
+
+/* ═══════════════════════════════════════════════════════════════
+   КОНФЕТТИ
+   ═══════════════════════════════════════════════════════════════ */
+.confetti-piece {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  pointer-events: none;
+  z-index: 999;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   ФУТЕР / ДИСКЛЕЙМЕР
+   ═══════════════════════════════════════════════════════════════ */
+.disclaimer {
+  max-width: 900px;
+  margin: 0 auto 40px;
+  padding: 0 16px;
+}
+.disclaimer-text {
+  background: rgba(255,255,255,.7);
+  border-radius: var(--radius-sm);
+  border-left: 4px solid var(--yellow);
+  padding: 14px 18px;
+  font-size: 12px;
+  color: #888;
+  line-height: 1.6;
+}
+.disclaimer-text strong { color: #E65100; }
+
+.contact-links {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+.contact-label {
+  font-size: 13px;
+  color: #888;
+  font-weight: 700;
+}
+.contact-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 999px;
+  padding: 7px 16px;
+  font-family: var(--font-head);
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform var(--transition), box-shadow var(--transition);
+  touch-action: manipulation;
+}
+.contact-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,.15); }
+.contact-btn-max   { background: #5B4FE9; color: #FFFFFF; }
+.contact-btn-tg    { background: #29B6F6; color: #FFFFFF; }
+.contact-btn-theme {
+  background: linear-gradient(135deg, #7CB342 0%, #E91E8C 100%);
+  color: #FFFFFF;
+  border: none;
+  cursor: pointer;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   СТАТИСТИКА В ШАПКЕ КАТЕГОРИИ
+   ═══════════════════════════════════════════════════════════════ */
+.category-progress {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: #888;
+  margin-left: auto;
+}
+.progress-bar {
+  width: 80px;
+  height: 8px;
+  background: #eee;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: var(--green);
+  border-radius: 4px;
+  transition: width .5s ease;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   АДАПТИВ
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .hero { padding: 32px 16px 44px; }
+  .dino-scene { height: 60px; }
+  .dino-step { font-size: 32px; }
+  .food { font-size: 22px; }
+
+  .products-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
+
+  .mascot { font-size: 40px; bottom: 16px; right: 16px; }
+
+  .portions-table { font-size: 11px; }
+  .portions-table th, .portions-table td { padding: 7px 5px; }
+
+  .modal { padding: 24px 18px 18px; }
+}
+
+@media (max-width: 480px) {
+  .baby-fields { flex-direction: column; }
+  .products-grid { grid-template-columns: 1fr 1fr; }
+  .panel-tabs { gap: 6px; }
+  .panel-tab { padding: 8px 12px; font-size: 12px; }
+  .io-buttons { flex-direction: column; }
+}
+
+/* ─── Параллакс-элементы ──────────────────────────────────────── */
+.parallax-slow { will-change: transform; }
+.parallax-fast { will-change: transform; }
+
+/* ─── Астероиды в фоне ────────────────────────────────────────── */
+.asteroid {
+  position: fixed;
+  font-size: 28px;
+  opacity: .25;
+  pointer-events: none;
+  z-index: 0;
+  animation: asteroid-drift 20s linear infinite;
+}
+@keyframes asteroid-drift {
+  from { transform: translateX(-60px) translateY(0) rotate(0deg); }
+  to   { transform: translateX(60px) translateY(-30px) rotate(360deg); }
+}
+
+/* ─── Toast-уведомления ───────────────────────────────────────── */
+.toast {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-80px);
+  background: var(--green-dark);
+  color: var(--white);
+  border-radius: var(--radius-sm);
+  padding: 12px 24px;
+  font-family: var(--font-head);
+  font-size: 15px;
+  z-index: 500;
+  box-shadow: 0 8px 24px rgba(0,0,0,.2);
+  white-space: nowrap;
+  transition: transform .35s cubic-bezier(.34,1.56,.64,1);
+}
+.toast.show { transform: translateX(-50%) translateY(0); }
+
+/* ═══════════════════════════════════════════════════════════════
+   МОБИЛЬНЫЕ УЛУЧШЕНИЯ
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Убираем 300ms задержку на тач-устройствах */
+.reaction-btn,
+.toggle-given,
+.allergy-toggle,
+.panel-tab,
+.btn,
+.rec-chip,
+.modal-close,
+.delete-custom-btn {
+  touch-action: manipulation;
+}
+
+/* Минимальный размер тач-цели */
+.reaction-btn { min-width: 44px; min-height: 44px; }
+.panel-tab    { min-height: 44px; }
+
+/* Горизонтальный скролл табов на мобильном */
+@media (max-width: 600px) {
+  .panel-tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 2px;
+  }
+  .panel-tabs::-webkit-scrollbar { display: none; }
+  .panel-tab {
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  /* Карточка продукта — чуть компактнее */
+  .product-card { padding: 14px 12px 12px; gap: 8px; }
+
+  /* Заголовок категории на мобильном */
+  .category-title { font-size: 16px; padding: 10px 12px; }
+
+  .main-content { padding-bottom: 80px; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   ПРИВЕТСТВЕННОЕ ОКНО
+   ═══════════════════════════════════════════════════════════════ */
+.welcome-modal {
+  max-width: 560px;
+  max-height: 88vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 28px 28px 24px;
+}
+
+.welcome-section {
+  background: #F1F8E9;
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.welcome-section--warn       { background: #FFF3E0; border-left: 4px solid var(--coral); }
+.welcome-section--tip        { background: #E3F2FD; border-left: 4px solid var(--blue); }
+.welcome-section--disclaimer { background: #F3E5F5; border-left: 4px solid var(--purple); }
+
+.welcome-icon  { font-size: 26px; line-height: 1; }
+.welcome-title { font-family: var(--font-head); font-size: 16px; color: var(--green-dark); margin: 0; }
+.welcome-section p { font-size: 14px; line-height: 1.6; color: #444; }
+
+.welcome-steps {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #444;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.welcome-warn-list {
+  font-size: 13px;
+  line-height: 1.7;
+  color: #444;
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.welcome-tip-rows { display: flex; flex-direction: column; gap: 10px; }
+.welcome-tip-row  { display: flex; flex-direction: column; gap: 2px; font-size: 13px; color: #444; }
+.welcome-tip-label { font-weight: 700; color: var(--green-dark); }
+
+.welcome-no-show {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #666;
+  cursor: pointer;
+  user-select: none;
+  margin-top: 4px;
+}
+.welcome-no-show input[type="checkbox"] {
+  width: 17px;
+  height: 17px;
+  cursor: pointer;
+  accent-color: var(--green);
+  flex-shrink: 0;
+}
+
+.welcome-btn {
+  width: 100%;
+  padding: 14px;
+  font-size: 17px;
+  font-family: var(--font-head);
+  border-radius: var(--radius);
+  margin-top: 2px;
+}
+
+@media (max-width: 600px) {
+  .welcome-modal { padding: 20px 16px 18px; max-height: 92vh; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   МОДАЛ ВЫБОРА ТЕМЫ
+   ═══════════════════════════════════════════════════════════════ */
+.gender-modal {
+  max-width: 400px;
+  text-align: center;
+  padding: 36px 28px 32px;
+}
+.gender-header-icon { font-size: 36px; margin-bottom: 8px; }
+.gender-header h2 {
+  font-family: var(--font-head);
+  font-size: 22px;
+  color: var(--green-dark);
+  margin-bottom: 6px;
+}
+.gender-header p {
+  font-size: 14px;
+  color: #777;
+  margin-bottom: 28px;
+}
+.gender-cards {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+.gender-card {
+  flex: 1;
+  max-width: 150px;
+  border: 3px solid transparent;
+  border-radius: var(--radius);
+  padding: 22px 12px 18px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  background: var(--card-bg);
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+  font-family: var(--font-body);
+}
+.gender-card:hover { transform: translateY(-6px); box-shadow: 0 8px 24px rgba(0,0,0,.12); }
+.gender-card--boy  { border-color: #4FC3F7; }
+.gender-card--boy:hover  { background: #E3F2FD; }
+.gender-card--girl { border-color: #F48FB1; }
+.gender-card--girl:hover { background: #FCE4EC; }
+.gender-card-emoji { font-size: 52px; line-height: 1; }
+.gender-card-label {
+  font-family: var(--font-head);
+  font-size: 17px;
+  color: var(--green-dark);
+}
+.gender-card-sub { font-size: 11px; color: #999; }
+
+/* ═══════════════════════════════════════════════════════════════
+   АЛЛЕРГИИ МАЛЫША
+   ═══════════════════════════════════════════════════════════════ */
+.baby-allergies-section {
+  margin-bottom: 24px;
+  padding-bottom: 20px;
+  border-bottom: 2px dashed #eee;
+}
+
+.baby-allergies-title {
+  font-family: var(--font-head);
+  font-size: 17px;
+  color: var(--red);
+  margin-bottom: 12px;
+}
+
+.baby-allergies-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.baby-allergy-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #FFF5F5;
+  border: 2px solid var(--red);
+  border-radius: 999px;
+  padding: 5px 14px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #C62828;
+}
+.baby-allergy-emoji { font-size: 18px; line-height: 1; }
+
+.baby-allergies-empty {
+  font-size: 14px;
+  color: #aaa;
+  font-style: italic;
+}
+
+.allergens-divider {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  color: #bbb;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+}
+.allergens-divider::before,
+.allergens-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: #eee;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   ФИЛЬТР ПОИСКА
+   ═══════════════════════════════════════════════════════════════ */
+.search-filter {
+  display: none;
+  align-items: center;
+  margin-top: 10px;
+}
+.search-filter.visible { display: flex; }
+
+.search-filter-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #555;
+  cursor: pointer;
+  user-select: none;
+}
+.search-filter-label input[type="checkbox"] {
+  accent-color: var(--blue);
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+/* Hover-эффекты только там, где есть мышь */
+@media (hover: none) {
+  .product-card:hover { transform: none; box-shadow: var(--card-shadow); }
+  .btn:hover          { transform: none; box-shadow: none; }
+  .rec-chip:hover     { transform: none; box-shadow: none; }
+  .panel-tab:hover    { transform: none; }
+  .category-title:active { background: rgba(255,255,255,.85); }
+}

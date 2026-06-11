@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🦕 Дино-меню малыша</title>
+  <meta name="description" content="Трекер введения прикорма — Планета Динозавров">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════
+     HERO
+     ═══════════════════════════════════════════════ -->
+<header class="hero" id="hero">
+  <!-- Фоновые облака -->
+  <div class="cloud cloud-1 parallax-slow"></div>
+  <div class="cloud cloud-2 parallax-slow"></div>
+  <div class="cloud cloud-3 parallax-fast"></div>
+
+  <!-- Дино-поле -->
+  <div class="dino-scene">
+    <span class="food food-1">🍎</span>
+    <span class="food food-2">🥕</span>
+    <span class="food food-3">🥦</span>
+    <span class="food food-4">🍌</span>
+    <span class="food food-5">🥑</span>
+    <div class="dino-runner"><span class="dino-step" id="dino-emoji">🦕</span></div>
+    <div class="ground-strip"></div>
+  </div>
+
+  <h1 class="hero-title" id="hero-title">🦕 Дино-меню малыша</h1>
+  <p class="hero-subtitle" id="hero-subtitle">Отслеживай прикорм вместе с динозавриками!</p>
+</header>
+
+<!-- ═══════════════════════════════════════════════
+     ДАННЫЕ МАЛЫША
+     ═══════════════════════════════════════════════ -->
+<section class="baby-section">
+  <div class="baby-card">
+<div class="baby-fields">
+      <label>
+        Имя малыша
+        <input type="text" id="baby-name" placeholder="Имя…" autocomplete="off">
+      </label>
+      <label>
+        Дата рождения
+        <input type="date" id="baby-birth">
+      </label>
+    </div>
+    <div class="baby-badges">
+      <div class="age-badge hidden" id="age-badge">🎂 Малышу <span id="age-text"></span></div>
+      <div class="global-progress-badge hidden" id="global-progress-badge">📊 Введено <span id="global-progress-text">0 из 0</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- Поиск продуктов -->
+<section class="search-section" id="search-section">
+  <div class="search-card">
+    <div class="search-input-wrap">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="search-input" placeholder="Поиск продукта или возраст в месяцах…" autocomplete="off">
+    </div>
+    <div class="search-filter" id="search-filter">
+      <label class="search-filter-label">
+        <input type="checkbox" id="search-filter-new">
+        <span>Только не введённые</span>
+      </label>
+    </div>
+    <div class="search-results" id="search-results"></div>
+  </div>
+</section>
+
+<!-- Баннер рекомендаций -->
+<section class="recommendation-banner" id="rec-banner">
+  <div class="rec-card">
+    <h3>🌟 Уже можно вводить по возрасту</h3>
+    <div class="rec-list" id="rec-list"></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     КАТЕГОРИИ ПРОДУКТОВ
+     ═══════════════════════════════════════════════ -->
+<main class="main-content" id="categories-root">
+  <!-- Карточки генерируются JavaScript-ом -->
+</main>
+
+<!-- ═══════════════════════════════════════════════
+     НИЖНИЕ ПАНЕЛИ
+     ═══════════════════════════════════════════════ -->
+<section class="panels">
+  <div class="panel-tabs">
+    <button class="panel-tab active" data-panel="portions">📊 Порции по возрасту</button>
+    <button class="panel-tab" data-panel="allergens">🤧 Аллергены</button>
+    <button class="panel-tab" data-panel="notes">📝 Общие заметки</button>
+    <button class="panel-tab" data-panel="io">💾 Данные</button>
+    <button class="panel-tab panel-tab-add" id="add-product-btn">🦖 Добавить вкусняшку</button>
+  </div>
+
+  <!-- Порции -->
+  <div class="panel-content active" id="panel-portions">
+    <div class="portions-table-wrap">
+      <table class="portions-table" id="portions-table">
+        <thead>
+          <tr>
+            <th>Возраст</th>
+            <th>🥦 Овощи</th>
+            <th>🥣 Каша</th>
+            <th>🍎 Фрукты</th>
+            <th>🥩 Мясо</th>
+            <th>🐟 Рыба</th>
+            <th>🧀 Молочное</th>
+            <th>Прочее</th>
+          </tr>
+        </thead>
+        <tbody id="portions-body">
+          <!-- Генерируется JS -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Аллергены -->
+  <div class="panel-content" id="panel-allergens">
+    <div class="baby-allergies-section">
+      <h3 class="baby-allergies-title">🤧 Аллергии малыша</h3>
+      <div class="baby-allergies-empty" id="baby-allergies-empty">Аллергий не зафиксировано 🎉</div>
+      <div class="baby-allergies-list" id="baby-allergies-list"></div>
+    </div>
+    <div class="allergens-divider"><span>Справочник: высокоаллергенные продукты</span></div>
+    <ul class="allergen-list" id="allergen-list">
+      <!-- Генерируется JS -->
+    </ul>
+  </div>
+
+  <!-- Заметки -->
+  <div class="panel-content" id="panel-notes">
+    <textarea class="general-notes-area" id="general-notes" placeholder="Запиши сюда всё важное: реакции, советы педиатра, особые наблюдения…"></textarea>
+  </div>
+
+  <!-- Экспорт/Импорт -->
+  <div class="panel-content" id="panel-io">
+    <div class="io-buttons">
+      <button class="btn btn-green" id="btn-export">💾 Экспорт в JSON</button>
+      <button class="btn btn-blue"  id="btn-import">📂 Импорт из JSON</button>
+      <button class="btn btn-coral" id="btn-share">📋 Копировать данные</button>
+      <button class="btn btn-danger" id="btn-clear">🗑 Очистить всё</button>
+    </div>
+    <p class="io-info">Все данные хранятся только на твоём устройстве (LocalStorage). Делай экспорт-бэкап почаще!</p>
+    <input type="file" id="import-file-input" accept=".json" style="display:none">
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     ДИСКЛЕЙМЕР
+     ═══════════════════════════════════════════════ -->
+<footer class="disclaimer">
+  <p class="disclaimer-text">
+    <strong>⚠️ Важно:</strong> Информация носит ориентировочный характер и не является медицинской рекомендацией.
+    Сроки и объёмы введения прикорма индивидуальны. <strong>Всегда консультируйтесь с педиатром</strong>
+    по вопросам прикорма вашего малыша.
+  </p>
+  <div class="contact-links">
+    <p class="contact-label">💬 Обратная связь:</p>
+    <a href="https://max.ru/u/f9LHodD0cOKWvBYiO89dicf2EoUHnVUhJc_cU65BFHxryY4_f6WDTu5ggMw" class="contact-btn contact-btn-max" target="_blank" rel="noopener">MAX</a>
+    <a href="https://t.me/tony_54322" class="contact-btn contact-btn-tg" target="_blank" rel="noopener">Telegram</a>
+    <button class="contact-btn contact-btn-theme" id="btn-change-theme">🎨 Сменить тему</button>
+  </div>
+</footer>
+
+<!-- ═══════════════════════════════════════════════
+     МАСКОТ
+     ═══════════════════════════════════════════════ -->
+<div class="mascot" id="mascot" title="Привет! Я Рекси 🦕">🦕</div>
+
+<!-- ═══════════════════════════════════════════════
+     МОДАЛЬНОЕ ОКНО
+     ═══════════════════════════════════════════════ -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal" id="modal">
+    <button class="modal-close" id="modal-close">×</button>
+    <h2>🦖 Добавить вкусняшку</h2>
+
+    <div class="form-group">
+      <label for="new-name">Название продукта</label>
+      <input type="text" id="new-name" placeholder="Например: Авокадо" autocomplete="off">
+    </div>
+
+    <div class="form-group">
+      <label>Эмодзи-иконка</label>
+      <div class="emoji-picker" id="emoji-picker">
+        <!-- Генерируется JS -->
+      </div>
+      <input type="text" id="new-emoji" placeholder="Или введи своё 🥑" maxlength="4" style="margin-top:8px">
+    </div>
+
+    <div class="form-group">
+      <label for="new-category">Категория</label>
+      <select id="new-category">
+        <option value="Овощи">🥦 Овощи</option>
+        <option value="Каши">🥣 Каши</option>
+        <option value="Фрукты">🍎 Фрукты</option>
+        <option value="Мясо">🥩 Мясо</option>
+        <option value="Рыба">🐟 Рыба</option>
+        <option value="Молочное">🧀 Молочное</option>
+        <option value="Жиры">🥑 Жиры</option>
+        <option value="Прочее" selected>🥚 Прочее</option>
+        <option value="__new__">➕ Новая категория…</option>
+      </select>
+    </div>
+
+    <div class="form-group" id="new-cat-group" style="display:none">
+      <label for="new-cat-name">Название новой категории</label>
+      <input type="text" id="new-cat-name" placeholder="Суперкатегория 🦄">
+    </div>
+
+    <div class="form-group">
+      <label for="new-min-age">Вводить с (месяцев)</label>
+      <input type="number" id="new-min-age" min="4" max="24" value="6">
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn btn-yellow" id="modal-cancel">Отмена</button>
+      <button class="btn btn-green"  id="modal-save">🦕 Добавить!</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     ВЫБОР ТЕМЫ
+     ═══════════════════════════════════════════════ -->
+<div class="modal-overlay" id="gender-overlay">
+  <div class="modal gender-modal">
+    <div class="gender-header">
+      <div class="gender-header-icon">🌟</div>
+      <h2>Кто ваш малыш?</h2>
+      <p>Выберите оформление приложения</p>
+    </div>
+    <div class="gender-cards">
+      <button class="gender-card gender-card--boy" id="gender-boy">
+        <span class="gender-card-emoji">🦕</span>
+        <span class="gender-card-label">Мальчик</span>
+        <span class="gender-card-sub">Мир динозавров</span>
+      </button>
+      <button class="gender-card gender-card--girl" id="gender-girl">
+        <span class="gender-card-emoji">👸</span>
+        <span class="gender-card-label">Девочка</span>
+        <span class="gender-card-sub">Мир принцесс</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     ПРИВЕТСТВЕННОЕ ОКНО
+     ═══════════════════════════════════════════════ -->
+<div class="modal-overlay" id="welcome-overlay">
+  <div class="modal welcome-modal">
+
+    <div class="welcome-section">
+      <div class="welcome-icon" id="welcome-main-icon">🦕</div>
+      <h3 class="welcome-title" id="welcome-main-title">Привет!</h3>
+      <p id="welcome-main-text">Это мой домашний проект, сделанный с любовью для своего малыша. Здесь могут быть баги и шероховатости — не ругайте строго 😅 Буду очень рад отзывам!</p>
+    </div>
+
+    <div class="welcome-section">
+      <div class="welcome-icon">🚀</div>
+      <h3 class="welcome-title">С чего начать?</h3>
+      <ol class="welcome-steps">
+        <li>Введи <strong>имя малыша и дату рождения</strong> — сайт сам рассчитает возраст</li>
+        <li>Отмечай продукты по мере их <strong>первого введения</strong></li>
+        <li>Указывай реакцию малыша: 😋 😐 🤢</li>
+        <li>Делай <strong>резервную копию</strong> через кнопку 💾 Данные</li>
+      </ol>
+    </div>
+
+    <div class="welcome-section welcome-section--warn">
+      <div class="welcome-icon">💾</div>
+      <h3 class="welcome-title">Важно: данные хранятся только в браузере</h3>
+      <p>На сервер ничего не передаётся. Но браузер может их удалить:</p>
+      <ul class="welcome-warn-list">
+        <li>📱 <strong>iOS Safari</strong> — удаляет через <strong>7 дней</strong> без посещения сайта</li>
+        <li>📱 <strong>iOS Chrome / Яндекс</strong> — аналогично (используют движок Safari)</li>
+        <li>🤖 <strong>Android</strong> — данные могут удалиться при очистке кеша</li>
+        <li>🖥️ <strong>Любой браузер</strong> — «Очистить данные сайтов» удалит всё</li>
+      </ul>
+      <p style="margin-top:10px;">📲 <strong>Совет:</strong> добавь сайт на главный экран — это защитит данные от удаления на iOS и откроет его как приложение!</p>
+      <div class="welcome-tip-rows" style="margin-top:8px;">
+        <div class="welcome-tip-row">
+          <span class="welcome-tip-label">🍎 iPhone / iPad</span>
+          <span>Safari → кнопка «Поделиться» → <strong>«На экран Домой»</strong></span>
+        </div>
+        <div class="welcome-tip-row">
+          <span class="welcome-tip-label">🤖 Android</span>
+          <span>Chrome / Яндекс → три точки → <strong>«Добавить на главный экран»</strong></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="welcome-section welcome-section--tip">
+      <div class="welcome-icon">🔍</div>
+      <h3 class="welcome-title">Как работает поиск?</h3>
+      <ul class="welcome-warn-list">
+        <li>🥦 <strong>По названию</strong> — начни вводить слово, и сайт найдёт нужный продукт</li>
+        <li>🔢 <strong>По возрасту</strong> — введи число (например <strong>6</strong>), и покажет все продукты, которые можно с этого возраста</li>
+        <li>👆 <strong>Нажми на результат</strong> — сайт автоматически прокрутит к карточке и раскроет категорию</li>
+      </ul>
+    </div>
+
+    <div class="welcome-section welcome-section--warn">
+      <div class="welcome-icon">💬</div>
+      <h3 class="welcome-title">Есть пожелания или нашёл баг?</h3>
+      <p>Буду рад любой обратной связи! Напиши через контакты в <strong>подвале сайта</strong> — там есть Telegram и MAX.</p>
+    </div>
+
+    <div class="welcome-section welcome-section--disclaimer">
+      <div class="welcome-icon">⚕️</div>
+      <p><strong>Дисклеймер:</strong> информация носит ориентировочный характер и не является медицинской рекомендацией. Сроки и объёмы введения прикорма индивидуальны. Всегда консультируйтесь с педиатром.</p>
+    </div>
+
+    <label class="welcome-no-show">
+      <input type="checkbox" id="welcome-no-show">
+      <span>Больше не показывать</span>
+    </label>
+    <button class="btn btn-green welcome-btn" id="welcome-close-btn">🦕 Понял, поехали!</button>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- Scripts -->
+<script src="js/data.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/app.js"></script>
+
+</body>
+</html>
